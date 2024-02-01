@@ -7,16 +7,80 @@ This project is a foundational exercise focusing on extracting meaningful insigh
 The datasets used in this project are available on Kaggle:
 - [Sales and Customer Data](https://www.kaggle.com/datasets/dataceo/sales-and-customer-data?select=customer_data.csv)
 
-## Business Questions
-1. What is the total revenue generated in 2022?
-2. What is the most popular product category in terms of quantity sold?
-3. What are the top three shopping malls in terms of sales revenue?
-4. What is the gender distribution across different product categories?
-5. What is the age distribution for different payment methods?
-6. What is the average spending per age group?
-7. How do monthly sales trends look throughout the year?
+## Data Cleaning and Validation
+Ensuring data integrity is a crucial step before performing any analysis. The following SQL queries were executed to check for missing values, duplicates, and data consistency, confirming that our dataset is clean and reliable.
 
-## SQL Queries and Results
+1. **Check for Missing Values in Sales Data:**
+
+   ```sql
+   SELECT 
+     COUNT(*) AS missing_count, 
+     'invoice_no' AS column_name 
+   FROM sales_customer_data.sales_raw 
+   WHERE invoice_no IS NULL
+   UNION ALL
+   SELECT 
+     COUNT(*), 
+     'customer_id' 
+   FROM sales_customer_data.sales_raw 
+   WHERE customer_id IS NULL
+   UNION ALL
+   SELECT 
+     COUNT(*), 
+     'category' 
+   FROM sales_customer_data.sales_raw 
+   WHERE category IS NULL;
+   ```
+2. **Check for Missing Values in Customer Data:**
+
+   ```sql
+   SELECT 
+     COUNT(*) AS missing_count, 
+     'customer_id' AS column_name 
+   FROM sales_customer_data.customer_raw 
+   WHERE customer_id IS NULL
+   UNION ALL
+   SELECT 
+     COUNT(*), 
+     'gender' 
+   FROM sales_customer_data.customer_raw 
+   WHERE gender IS NULL;
+   ```
+3. **Look for Duplicate Entries:**
+   ```sql
+   SELECT 
+     customer_id, 
+     COUNT(*) 
+   FROM sales_customer_data.sales_raw 
+   GROUP BY customer_id 
+   HAVING COUNT(*) > 1
+   UNION ALL
+   SELECT 
+     customer_id, 
+     COUNT(*) 
+   FROM sales_customer_data.customer_raw 
+   GROUP BY customer_id 
+   HAVING COUNT(*) > 1;
+   ```
+
+4. **Validate Data Consistency:**
+   ```sql
+   SELECT 
+     COUNT(*) 
+   FROM sales_customer_data.sales_raw 
+   WHERE price <= 0 OR quantity <= 0;
+   ```
+
+5. **Check Data Types and Ranges:**
+   ```sql
+   SELECT 
+     COUNT(*) 
+   FROM sales_customer_data.customer_raw 
+   WHERE age < 18 OR age > 100;
+   ```
+
+--> **All of these checks returned 0 issues, confirming that the data is clean and ready for analysis.**
+   
 
 ### Merging the Datasets
 **Query:**
@@ -28,6 +92,21 @@ FROM sales_customer_data.sales_raw AS sales
 JOIN sales_customer_data.customer_raw AS customer
 ON sales.customer_id = customer.customer_id;
 ```
+
+## Business Questions
+
+Following our comprehensive data cleaning, validation, and exploratory analysis, we identified several key areas of interest that warrant deeper investigation. These areas align with crucial business questions that can provide valuable insights into customer behavior, sales performance, and operational efficiency. By analyzing our cleaned and merged dataset, we aim to answer the following business questions, offering actionable insights to inform strategic decision-making.
+
+
+1. What is the total revenue generated in 2022?
+2. What is the most popular product category in terms of quantity sold?
+3. What are the top three shopping malls in terms of sales revenue?
+4. What is the gender distribution across different product categories?
+5. What is the age distribution for different payment methods?
+6. What is the average spending per age group?
+7. How do monthly sales trends look throughout the year?
+
+## SQL Queries and Results
 
 ## 1. Total Revenue Generated in 2022
 **Query:**
