@@ -1,7 +1,7 @@
 # Retail Insights with SQL (MySQL)
 
 ## Overview
-This project focuses on extracting meaningful insights from sales and customer data using SQL in MySQL. The aim is to demonstrate how SQL can be utilized to answer key business questions and derive actionable insights from complex datasets.
+This project is a foundational exercise focusing on extracting meaningful insights from sales and customer data using SQL in MySQL. Designed as a basic project, it serves to practice and enhance my SQL skills. The aim is to demonstrate how even fundamental SQL queries can be effectively utilized to answer key business questions and derive actionable insights from complex datasets. 
 
 ## Datasets
 The datasets used in this project are available on Kaggle:
