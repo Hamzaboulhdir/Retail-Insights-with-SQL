@@ -211,3 +211,6 @@ Result:
 Sales peaked in January, followed by a decline with some fluctuations throughout the year. The trend suggests a strong start to the year with gradual normalization of sales over the following months.
 
 
+### Conclusion
+
+This project demonstrates the capability of SQL in analyzing real-world data to uncover valuable business insights. The insights derived can aid in strategic decision-making and uncover opportunities for growth and optimization.
